@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <script src="js/form.js"></script>
+</head>
+<body>
+<div service>
+  <div name="full_name">
+    <h1>Name</h1>
+    <label>First name:</label><input type="text" name="name"/><br/>
+    <label>Surname:</label><input type="text" name="surname"/><br/>
+  </div>
+  <label>Age:</label><input type="number" name="age"/><br/>
+  <button type="button" onclick="FORM.signal(this, get)">Some</button>
+</div>
+<script>
+function get(args) {
+  alert('Hello ' + args.full_name.name + ' ' + args.full_name.surname + '!\nYou are ' + args.age + ' years old');
+}
+</script>
+</body>
+</html>
