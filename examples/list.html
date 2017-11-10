@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <script src="js/form.js"></script>
+</head>
+<body>
+<div service data-type="array">
+  <div data-type="array-item" style="display:none;visibility:hidden">
+    <div name="*"/>
+      <label>Name:</label><input type="text" name="name"/><br/>
+      <label>Age:</label><input type="number" name="age"/>
+    </div>
+  </div>
+  <div data-type="array-body">
+  </div>
+  <button type="button" onclick="FORM.signal(this,get_max)">Get Max</button>
+  <button type="button" onclick="add(this)">Add</button>
+</div>
+<script>
+function get_max(args) {
+  var name = '';
+  var max = -999;
+  for ( var i = 0 ; i < args.length ; i++ ) {
+    if ( args[i].age > max ) {
+      max = args[i].age;
+      name = args[i].name;
+    }
+  }
+  alert('The oldest is ' + name);
+}
+
+function add(e) {
+  var e = FORM.get_parent(e);
+  e = FORM.create(e);
+  e.add({name: 'Nuevo', age: 10});
+}
+</script>
+</body>
+</html>
