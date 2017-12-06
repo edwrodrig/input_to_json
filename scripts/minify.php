@@ -6,5 +6,5 @@ $minifier = new \MatthiasMullie\Minify\JS;
 $minifier->add(__DIR__ . '/../js/form.js');
 $minifier->add(__DIR__ . '/../js/request.js');
 
-$minifier->gzip(__DIR__ . '/../js/request.min.js');
+$minifier->gzip(__DIR__ . '/../js/request.min.js.gz');
 
