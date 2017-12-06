@@ -19,7 +19,7 @@ REQUEST.signal = function(e, callback) {
     service.process(r);
 
   r.send();
-}
+};
 
 REQUEST.request = function(url, param_info) {
   this.url = url;
@@ -33,7 +33,7 @@ REQUEST.request = function(url, param_info) {
   this.error = function(code, message) {
     console.log("ERROR[" +code + "] = ", message);
   };
-}
+};
 
 REQUEST.request.prototype.send = function() {
   var params = this.params;
@@ -82,5 +82,5 @@ REQUEST.request.prototype.send = function() {
   } catch ( err) {
     callback_error(err.code, err.message);
   }
-}
+};
 
