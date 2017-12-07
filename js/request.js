@@ -1,11 +1,14 @@
 var REQUEST = {};
 
-REQUEST.call = function(url, params, process) {
+REQUEST.call = function(url, params, config) {
   var r = new REQUEST.request(url);
   r.params = params;
 
-  if ( typeof process === "function" ) {
-    process(r);
+  if ( typeof config === "object" ) {
+    if ( config.hasOwnProperty('success') )
+      r.success = config.success;
+    if ( config.hasOwnProperty('error') )
+      r.error = config.error;
   }
 
   r.send();

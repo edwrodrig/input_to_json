@@ -14,10 +14,10 @@ function get(args) {
   REQUEST.call(
     'test.php',
     null,
-    function(r) {
-      r.success = function(e) {
+    {
+      success: function(e) {
         document.getElementById('result').value = JSON.stringify(e);
-      };
+      }
     }
   );
 }
