@@ -2,12 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <script src="js/request.min.js"></script>
+  <script src="js/form.js"></script>
 </head>
 <body>
 <div service>
   <label>Filename</label>
-  <input type="file" name="file"/><button type="button" onclick="FORM.signal(this, get_file)">Read</button><br/>
+  <input type="file" name="file"/><button type="button" onclick="get_file(FORM.get_params(this))">Read</button><br/>
   <textarea id="result" style="width:100%;height:350px" readonly></textarea>
 </div>
 <script>

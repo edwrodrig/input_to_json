@@ -1,51 +1,37 @@
 var REQUEST = {};
 
-REQUEST.services = {};
+REQUEST.call = function(url, params, process) {
+  var r = new REQUEST.request(url);
+  r.params = params;
 
-REQUEST.signal = function(e, callback) {
-  e = FORM.get_parent(e);
-
-  var service_name = e.getAttribute('service');
-  
-  if ( !this.services.hasOwnProperty(service_name) ) return;
-  var service = this.services[service_name];
-
-  var r = new REQUEST.request(service.url, service.params);
-  r.type = service.type;
-
-  r.params = FORM.get(e);
-
-  if ( service.hasOwnProperty('process') )
-    service.process(r);
+  if ( typeof process === "function" ) {
+    process(r);
+  }
 
   r.send();
 };
 
-REQUEST.request = function(url, param_info) {
+REQUEST.request = function(url) {
   this.url = url;
-  this.param_info = param_info;
-  this.type = "json";
 
   this.success = function(data) {
     console.log(data);
   };
 
   this.error = function(code, message) {
-    console.log("ERROR[" +code + "] = ", message);
+    console.log("ERROR[" + code + "] = ", message);
   };
 };
 
 REQUEST.request.prototype.send = function() {
   var params = this.params;
 
-  callback_success = this.success;
-  callback_error = this.error;
+  var callback_success = this.success;
+  var callback_error = this.error;
 
   var xhr = new XMLHttpRequest;
 
   try {
-    params;
-
     xhr.open("POST", this.url, true);
 
     xhr.onload = function(e) {
@@ -74,8 +60,8 @@ REQUEST.request.prototype.send = function() {
       callback_error(xhr.status, err.target.status);
     };
 
-    if ( this.type == 'form_data' )
-      xhr.send(FORM.to_form(params));
+    if ( params instanceof FormData )
+      xhr.send(params);
     else
       xhr.send(JSON.stringify(params)); 
   

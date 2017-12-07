@@ -220,7 +220,8 @@ FORM.input.object.prototype.clear = function() {
   }
 };
 
-FORM.get = function(e, type) {
+FORM.get_params = function(e, type) {
+  e = FORM.get_parent(e);
   var data = FORM.create(e).get();
   if ( type === "form_data" )
     return FORM.to_form(data);
@@ -235,11 +236,5 @@ FORM.to_form = function(value) {
     formData.append(name, element);
   }}
   return formData;
-};
-
-FORM.signal = function(e, callback) {
-  e = FORM.get_parent(e);
-  var params = FORM.get(e);
-  callback(params);
 };
 

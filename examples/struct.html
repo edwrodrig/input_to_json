@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <script src="js/request.min.js"></script>
+  <script src="js/form.js"></script>
 </head>
 <body>
 <div service>
@@ -12,7 +12,7 @@
     <label>Surname:</label><input type="text" name="surname"/><br/>
   </div>
   <label>Age:</label><input type="number" name="age"/><br/>
-  <button type="button" onclick="FORM.signal(this, get)">Some</button>
+  <button type="button" onclick="get(FORM.get_params(this))">Some</button>
 </div>
 <script>
 function get(args) {
