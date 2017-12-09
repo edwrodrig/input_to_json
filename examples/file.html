@@ -16,7 +16,7 @@ function get_file(args) {
   reader.onload = function(e) {
     document.getElementById('result').value = e.target.result;
   };
-  var text = reader.readAsText(args.file);
+  var text = reader.readAsText(args.get('file'));
 }
 </script>
 </body>

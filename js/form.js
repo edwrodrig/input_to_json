@@ -40,6 +40,10 @@ FORM.input.default = function(e) {
   this.e = e;
 };
 
+FORM.input.default.prototype.must_type = function() {
+  return null;
+}
+
 FORM.input.default.prototype.get = function() {
   return this.e.value;
 };
@@ -80,6 +84,10 @@ FORM.input.file.prototype = Object.create(FORM.input.default.prototype);
 
 FORM.input.file.prototype.constructor = FORM.input.file;
 
+FORM.input.file.prototype.must_type = function() {
+  return 'form_data';
+}
+
 FORM.input.file.prototype.get = function() {
   return this.e.files.length > 0 ? this.e.files[0] : null;
 };
@@ -114,6 +122,12 @@ FORM.input.array.prototype.get_elements = function() {
 
   return elements;
 };
+
+FORM.input.array.prototype.must_type = function() {
+  var item = this.new_item();
+
+  return FORM.create(item).must_type();
+}
 
 FORM.input.array.prototype.new_item = function() {
   return this.item.cloneNode(true);
@@ -185,6 +199,19 @@ FORM.input.object.prototype.get_elements = function() {
   return elements;
 };
 
+FORM.input.object.prototype.must_type = function() {
+  var elements = this.get_elements();
+
+  for ( var name in elements ) {
+    if ( elements.hasOwnProperty(name) ) {
+      var type = FORM.create(elements[name]).must_type();
+      if ( type !== null )
+        return type;
+    }
+  }
+}
+
+
 FORM.input.object.prototype.get = function() {
   var elements = this.get_elements();
   var values = {};
@@ -222,7 +249,11 @@ FORM.input.object.prototype.clear = function() {
 
 FORM.get_params = function(e, type) {
   e = FORM.get_parent(e);
-  var data = FORM.create(e).get();
+  e = FORM.create(e);
+  var data = e.get();
+  if ( typeof type === 'undefined' ) {
+    type = e.must_type();
+  }
   if ( type === "form_data" )
     return FORM.to_form(data);
   else
