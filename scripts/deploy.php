@@ -7,6 +7,7 @@ mkdir(__DIR__ . '/output');
 $minifier = new \MatthiasMullie\Minify\JS;
 $minifier->add(__DIR__ . '/../js/form.js');
 $minifier->add(__DIR__ . '/../js/request.js');
+$minifier->add(__DIR__ . '/../js/page.js');
 
 $minifier->minify(__DIR__ . '/output/request.min.js');
 $minifier->gzip(__DIR__ . '/output/request.min.js.gz');
