@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <script src="js/request.js"></script>
+</head>
+<body>
+<div>
+  <textarea id="result" style="width:100%;height:350px" readonly></textarea>
+  <button type="button" onclick="get()">Some</button>
+</div>
+<script>
+function get_base(callbacks) {
+  var callbacks = REQUEST.normalize_callbacks(callbacks);
+
+  REQUEST.call(
+    'test.php',
+    null,
+    {
+      success : function(e) {
+        console.log('hola como te va');
+        callbacks.success(e);
+      },
+      error : function(e) {
+        callbacks.error(e);
+      }
+    }
+  );
+}
+
+
+function get() {
+  get_base(
+    {
+      success: function(e) {
+        document.getElementById('result').value = JSON.stringify(e);
+      }
+    }
+  );
+}
+</script>
+</body>
+</html>

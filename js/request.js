@@ -26,6 +26,21 @@ REQUEST.request = function(url) {
   };
 };
 
+REQUEST.normalize_callbacks = function(callbacks) {
+  if ( typeof callbacks === 'undefined' )
+    callbacks = {};
+
+  if ( !callbacks.hasOwnProperty('success') ) {
+    callbacks.success = function(data) {};
+  }
+
+  if ( !callbacks.hasOwnProperty('error') ) {
+    callbacks.error = function(data) {};
+  }
+
+  return callbacks;
+};
+
 REQUEST.request.prototype.send = function() {
   var params = this.params;
 
