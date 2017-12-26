@@ -8,7 +8,10 @@ FORM.get_type = function(e) {
     if ( attribute == 'number') type = 'number';
     else if ( attribute == 'file' ) type = 'file';
     else type = 'default';
+  } else if ( e.tagName == 'TEXTAREA' ) {
+    type = 'default';
   }
+
 
   if ( e.hasAttribute('data-type') )
     type = e.getAttribute('data-type');
