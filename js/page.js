@@ -17,3 +17,8 @@ PAGE.params = function() {
   return result;
 };
 
+PAGE.touch2click = function(e) {
+  e.preventDefault();
+  e.target.onclick();
+};
+
