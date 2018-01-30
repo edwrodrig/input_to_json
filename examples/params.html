@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <script src="js/form.js"></script>
+  <script src="js/elem.js"></script>
   <script src="js/page.js"></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
 <script>
 function sum(args) {
   var params = PAGE.params();
-  document.getElementById('result').innerHTML = params.a + params.b;
+  ELEM.get('result').value = params.a + params.b;
 }
 </script>
 </body>

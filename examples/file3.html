@@ -13,14 +13,14 @@
 <script>
 function get_file(args) {
   alert('h');
-  var reader = new FileReader();
-  alert('hh');
-  reader.onload = function(e) {
-    document.getElementById('result').value = e.target.result;
-  };
-  alert('hola');
-  var text = reader.readAsText(args.get('file'));
-  alert('hola2');
+  try {
+    alert('adsfadsf');
+    alert(args);
+    args.blkabla('file');
+    alert('ggg');
+  } catch (e) {
+    alert('except' + e.message);
+  }
 }
 </script>
 </body>

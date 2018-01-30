@@ -23,6 +23,7 @@ REQUEST.request = function(url) {
 
   this.error = function(code, message) {
     console.log("ERROR[" + code + "] = ", message);
+    alert("ERROR[" + code + "] = " + message); 
   };
 };
 
@@ -35,7 +36,10 @@ REQUEST.normalize_callbacks = function(callbacks) {
   }
 
   if ( !callbacks.hasOwnProperty('error') ) {
-    callbacks.error = function(data) {};
+    callbacks.error = function(code, message) {
+      console.log("ERROR[" + code + "] = ", message);
+      alert("ERROR[" + code + "] = " + message);
+    };
   }
 
   return callbacks;

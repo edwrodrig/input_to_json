@@ -13,6 +13,10 @@
     },
     "require-dev" : {
         "matthiasmullie/minify": "^1.3",
-        "edwrodrig/deployer" : "dev-master"
+        "edwrodrig/deployer" : "1.0.0"
+    },
+    "scripts" : {
+      "deploy" : "php scripts/deploy.php"
     }
+
 }
