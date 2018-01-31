@@ -41,7 +41,7 @@ REQUEST.request.prototype.error = function(callback, append) {
 };
 
 REQUEST.request.prototype.json = function(value) {
-  r.params = value;
+  this.params = value;
   return this;
 };
 

@@ -13,6 +13,7 @@
 <script>
 function get(args) {
   REQUEST.call('test.php')
+    .json({name: 'Edwin', surname: 'Rodriguez'})
     .success(function(e) {
         ELEM.get('result').value = JSON.stringify(e);
     })
