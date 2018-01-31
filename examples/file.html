@@ -2,25 +2,21 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <script src="js/form.js"></script>
+  <script src="js/elem.js"></script>
 </head>
 <body>
-<div service>
+<div id="form" data-type="object">
   <label>Filename</label>
-  <input type="file" name="file"/><button type="button" onclick="get_file(FORM.get_params(this))">Read</button><br/>
+  <input type="file" name="file"/><button type="button" onclick="get_file(ELEM.get('form').value)">Read</button><br/>
   <textarea id="result" style="width:100%;height:350px" readonly></textarea>
 </div>
 <script>
-function get_file(args) {
-  alert('h');
+function get_file(data) {
   var reader = new FileReader();
-  alert('hh');
   reader.onload = function(e) {
-    document.getElementById('result').value = e.target.result;
+    ELEM.get('result').value = e.target.result;
   };
-  alert('hola');
-  var text = reader.readAsText(args.get('file'));
-  alert('hola2');
+  var text = reader.readAsText(data.file);
 }
 </script>
 </body>

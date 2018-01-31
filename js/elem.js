@@ -50,21 +50,21 @@ ELEM.type = {
     });
   },
   array(object) {
-    var item_id = this.e.getAttribute('item-template-id');
-    this.item_template = document.getElementById(item_id).firstElementChild;
+    var item_id = object.e.getAttribute('item-template-id');
+    object.item_template = document.getElementById(item_id).firstElementChild;
 
 
     object.add = function(value) {
       var item = this.item_template.cloneNode(true);
       var elem = ELEM.get(item);
       elem.value = value;
-      this.e.appendChild(elem);
+      this.e.appendChild(item);
     };
 
     Object.defineProperty(object, 'value', {
       get() {
         var elements = [];
-        for ( var child in ELEM.iterate_array_elements(this) ) {
+        for ( var child of ELEM.iterate_array_elements(this.e) ) {
           elements.push(child.value);
         }
         return elements;

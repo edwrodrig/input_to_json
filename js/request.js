@@ -28,7 +28,7 @@ REQUEST.request = function(url) {
 };
 
 REQUEST.normalize_callbacks = function(callbacks) {
-  if ( typeof callbacks === 'undefined' )
+  if ( callbacks === undefined )
     callbacks = {};
 
   if ( !callbacks.hasOwnProperty('success') ) {

@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 mkdir(__DIR__ . '/output');
 
 $minifier = new \MatthiasMullie\Minify\JS;
-$minifier->add(__DIR__ . '/../js/form.js');
+$minifier->add(__DIR__ . '/../js/elem.js');
 $minifier->add(__DIR__ . '/../js/request.js');
 $minifier->add(__DIR__ . '/../js/page.js');
 

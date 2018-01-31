@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <script src="js/request.js"></script>
+  <script src="js/elem.js"></script>
 </head>
 <body>
 <div>
@@ -16,7 +17,7 @@ function get(args) {
     null,
     {
       success: function(e) {
-        document.getElementById('result').value = JSON.stringify(e);
+        ELEM.get('result').value = JSON.stringify(e);
       }
     }
   );
