@@ -27,6 +27,17 @@ REQUEST.request = function(url) {
   };
 };
 
+REQUEST.to_form = function(value) {
+  var formData = new FormData();
+  for ( var name in value ) {
+    if ( value.hasOwnProperty(name) ) {
+       var element = value[name];
+       formData.append(name, element);
+    }
+  }
+  return formData;
+};
+
 REQUEST.normalize_callbacks = function(callbacks) {
   if ( callbacks === undefined )
     callbacks = {};

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <script src="js/request.js"></script>
+  <script src="js/elem.js"></script>
+</head>
+<body>
+<div>
+  <div id="object" data-type="object">
+    <input type="file" name="file"/>
+  </div>
+  <textarea id="result" style="width:100%;height:350px" readonly></textarea>
+  <button type="button" onclick="get()">Some</button>
+</div>
+<script>
+function get() {
+  var values = ELEM.get('object').value;
+  values = REQUEST.to_form(values);
+
+  REQUEST.call(
+    'file.php',
+    values,
+    {
+      success: function(e) {
+        ELEM.get('result').value = JSON.stringify(e);
+      }
+    }
+  );
+}
+</script>
+</body>
+</html>
