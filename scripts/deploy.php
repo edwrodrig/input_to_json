@@ -5,9 +5,9 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 mkdir(__DIR__ . '/output');
 
 $minifier = new \MatthiasMullie\Minify\JS;
-$minifier->add(__DIR__ . '/../js/elem.js');
-$minifier->add(__DIR__ . '/../js/request.js');
-$minifier->add(__DIR__ . '/../js/page.js');
+$minifier->add(\edwrodrig\js\Lib::source('elem.js'));
+$minifier->add(\edwrodrig\js\Lib::source('request.js'));
+$minifier->add(\edwrodrig\js\Lib::source('page.js'));
 
 $minifier->minify(__DIR__ . '/output/request.min.js');
 $minifier->gzip(__DIR__ . '/output/request.min.js.gz');
