@@ -1,68 +1,85 @@
 var REQUEST = {};
 
-REQUEST.call = function(url, params, config) {
-  var r = new REQUEST.request(url);
-  r.params = params;
-
-  if ( typeof config === "object" ) {
-    if ( config.hasOwnProperty('success') )
-      r.success = config.success;
-    if ( config.hasOwnProperty('error') )
-      r.error = config.error;
-  }
-
-  r.send();
+REQUEST.call = function(url) {
+  return new REQUEST.request(url);
 };
+
+REQUEST.default_callback_success = [function(data) {
+  console.log(data);
+}];
+
+REQUEST.default_callback_error = [function(code, message) {
+  console.log("ERROR[" + code + "] = ", message);
+  alert("ERROR[" + code + "] = " + message);
+}];
 
 REQUEST.request = function(url) {
   this.url = url;
-
-  this.success = function(data) {
-    console.log(data);
-  };
-
-  this.error = function(code, message) {
-    console.log("ERROR[" + code + "] = ", message);
-    alert("ERROR[" + code + "] = " + message); 
-  };
+  this.params = {};
+  this.callback_success = REQUEST.default_callback_success;
+  this.callback_error = REQUEST.default_callback_error;
 };
 
-REQUEST.to_form = function(value) {
-  var formData = new FormData();
-  for ( var name in value ) {
-    if ( value.hasOwnProperty(name) ) {
-       var element = value[name];
-       formData.append(name, element);
+REQUEST.request.prototype.success = function(callback, append) {
+  append = typeof append !== 'undefined' ?  append : true;
+  if ( append )
+    this.callback_success.push(callback);
+  else
+    this.callback_success = [callback];
+
+  return this;
+};
+
+REQUEST.request.prototype.error = function(callback, append) {
+  append = typeof append !== 'undefined' ?  append : true;
+  if ( append )
+    this.callback_error.push(callback);
+  else
+    this.callback_error = [callback];
+
+  return this;
+};
+
+REQUEST.request.prototype.json = function(value) {
+  r.params = value;
+  return this;
+};
+
+REQUEST.request.prototype.form = function(value) {
+  if ( value instanceof FormData ) {
+    this.params = value;
+  } else {
+    var formData = new FormData();
+    for ( var name in value ) {
+      if ( value.hasOwnProperty(name) ) {
+         var element = value[name];
+         formData.append(name, element);
+      }
     }
+    this.params = formData;
   }
-  return formData;
+  return this;
 };
 
-REQUEST.normalize_callbacks = function(callbacks) {
-  if ( callbacks === undefined )
-    callbacks = {};
+REQUEST.request.prototype.call_success = function(r) {
+  for ( var i = 0 ; i < this.callback_success.length ; i++ ) {
+    this.callback_success[i](r);
+  }  
+};
 
-  if ( !callbacks.hasOwnProperty('success') ) {
-    callbacks.success = function(data) {};
+REQUEST.request.prototype.call_error = function(code, message) {
+  for ( var i = 0 ; i < this.callback_error.length ; i++ ) {
+    this.callback_error[i](code, message);
   }
-
-  if ( !callbacks.hasOwnProperty('error') ) {
-    callbacks.error = function(code, message) {
-      console.log("ERROR[" + code + "] = ", message);
-      alert("ERROR[" + code + "] = " + message);
-    };
-  }
-
-  return callbacks;
 };
 
 REQUEST.request.prototype.send = function() {
   var params = this.params;
 
-  var callback_success = this.success;
-  var callback_error = this.error;
-
   var xhr = new XMLHttpRequest;
+
+  var success = this.call_success.bind(this);
+  var error = this.call_error.bind(this);
 
   try {
     xhr.open("POST", this.url, true);
@@ -75,7 +92,7 @@ REQUEST.request.prototype.send = function() {
         var r = JSON.parse(xhr.response);
         if ( r ) {
           if ( r.status >= 0 )
-            callback_success(r.data);
+            success(r.data);
 
           else 
             throw { code : r.status, message: r.message};
@@ -84,13 +101,13 @@ REQUEST.request.prototype.send = function() {
           throw { code : -1, message: e.target.status};
         }
       } catch ( err ) {
-        callback_error(err.code, err.message);
+        error(err.code, err.message);
       }
     };
 
     xhr.onerror = function(err) {
       console.log(xhr.response);
-      callback_error(xhr.status, err.target.status);
+      error(xhr.status, err.target.status);
     };
 
     if ( params instanceof FormData )
@@ -98,8 +115,8 @@ REQUEST.request.prototype.send = function() {
     else
       xhr.send(JSON.stringify(params)); 
   
-  } catch ( err) {
-    callback_error(err.code, err.message);
+  } catch ( err ) {
+    error(err.code, err.message);
   }
 };
 

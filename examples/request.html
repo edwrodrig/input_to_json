@@ -12,15 +12,11 @@
 </div>
 <script>
 function get(args) {
-  REQUEST.call(
-    'test.php',
-    null,
-    {
-      success: function(e) {
+  REQUEST.call('test.php')
+    .success(function(e) {
         ELEM.get('result').value = JSON.stringify(e);
-      }
-    }
-  );
+    })
+    .send();
 }
 </script>
 </body>

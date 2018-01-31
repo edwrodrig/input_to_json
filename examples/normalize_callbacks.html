@@ -11,33 +11,18 @@
   <button type="button" onclick="get()">Some</button>
 </div>
 <script>
-function get_base(callbacks) {
-  var callbacks = REQUEST.normalize_callbacks(callbacks);
-
-  REQUEST.call(
-    'test.php',
-    null,
-    {
-      success : function(e) {
-        console.log('hola como te va');
-        callbacks.success(e);
-      },
-      error : function(e) {
-        callbacks.error(e);
-      }
-    }
-  );
+function get_base() {
+  return REQUEST.call('test.php')
+    .success(function() { console.log('hola como te va'); });
 }
 
 
 function get() {
-  get_base(
-    {
-      success: function(e) {
-        document.getElementById('result').value = JSON.stringify(e);
-      }
-    }
-  );
+  get_base()
+    .success(function(r) {
+      ELEM.get('result').value = JSON.stringify(r);
+    })
+    .send();
 }
 </script>
 </body>

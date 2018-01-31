@@ -16,17 +16,13 @@
 <script>
 function get() {
   var values = ELEM.get('object').value;
-  values = REQUEST.to_form(values);
 
-  REQUEST.call(
-    'file.php',
-    values,
-    {
-      success: function(e) {
-        ELEM.get('result').value = JSON.stringify(e);
-      }
-    }
-  );
+  REQUEST.call('file.php')
+    .form(values)
+    .success(function(e) {
+      ELEM.get('result').value = JSON.stringify(e);
+    })
+    .send();
 }
 </script>
 </body>

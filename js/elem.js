@@ -24,7 +24,7 @@ ELEM.type = {
       set(value) { this.e.value = parseInt(value); }
     });
   },
-  input_image(object) {
+  image(object) {
     Object.defineProperty(object, 'value', {
       get() { return this.e.src; },
       set(value) { this.e.setAttribute('src', value); }
