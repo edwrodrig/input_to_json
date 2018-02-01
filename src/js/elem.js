@@ -82,7 +82,7 @@ ELEM.type = {
 };
 
 ELEM.get_type = function(elem) {
-  var type = elem.hasAttribute('data-type') ? elem.getAttribute('data-type') : 'plain';
+  var type = 'plain';
 
   if ( elem.tagName == 'INPUT' ) {
     var input_type = elem.hasAttribute('type') ? elem.getAttribute('type') : undefined;
@@ -96,6 +96,8 @@ ELEM.get_type = function(elem) {
   } else if ( elem.tagName == 'IMG' ) {
     type = 'image';
   };
+
+  type = elem.hasAttribute('data-type') ? elem.getAttribute('data-type') : type;
 
   return type;
 };
