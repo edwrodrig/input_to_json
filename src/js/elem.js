@@ -111,6 +111,14 @@ ELEM.get = function(elem) {
   if ( elem.hasAttribute('name') )
     object.name = elem.getAttribute('name');
 
+  object.get_element = function(name) {
+    for ( var child of ELEM.iterate_object_elements(this.e) ) {
+      if ( child.name == name )
+        return child;
+    }
+    return null;
+  };
+
   if ( ELEM.type.hasOwnProperty(type) )
     ELEM.type[type](object);
   else 

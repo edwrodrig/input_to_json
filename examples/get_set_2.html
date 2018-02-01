@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <script src="js/elem.js"></script>
+</head>
+<body>
+<div>
+  <textarea id="text_1" style="width:100%;height:200px">
+{
+  "id": "something",
+  "text": "some text"
+}
+  </textarea>
+  <button type="button" onclick="apply_text()">Apply Text</button>
+
+  <h1>Output</h1>
+  <div id="object" data-type="custom">
+    <div name="id" id="output_1"></div>
+    <input name="text" type="text" id="output_2"/>
+  </div>
+</div>
+<script>
+ELEM.type.custom = function(object) {
+  Object.defineProperty(object, 'value', {
+    set(value) {
+      this.get_element('id').value = value.id;
+      this.get_element('text').value = value.text;
+    }
+  });
+};
+
+function apply_text() {
+  var text = ELEM.get('text_1').value;
+  var values = JSON.parse(text);
+  ELEM.get('object').value = values;
+}
+</script>
+</body>
+</html>
