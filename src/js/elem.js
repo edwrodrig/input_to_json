@@ -24,6 +24,12 @@ ELEM.type = {
       set(value) { this.e.value = parseInt(value); }
     });
   },
+  input_checkbox(object) {
+    Object.defineProperty(object, 'value', {
+      get() { return this.e.checked; },
+      set(value) { this.e.checked = value; }
+    });
+  },
   image(object) {
     Object.defineProperty(object, 'value', {
       get() { return this.e.src; },
@@ -90,6 +96,7 @@ ELEM.get_type = function(elem) {
     else if ( input_type === 'text' ) type = 'input_text';
     else if ( input_type === 'file' ) type = 'input_file';
     else if ( input_type === 'number' ) type = 'input_number';
+    else if ( input_type === 'checkbox' ) type = 'input_checkbox';
     else type = 'input_text';
   } else if ( elem.tagName == 'TEXTAREA' ) {
     type = 'input_text';
