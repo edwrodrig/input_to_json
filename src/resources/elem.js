@@ -57,7 +57,7 @@ ELEM.type = {
   },
   array(object) {
     var item_id = object.e.getAttribute('item-template-id');
-    object.item_template = document.getElementById(item_id).firstElementChild;
+    object.item_template = document.getElementById(item_id).content.firstElementChild;
 
 
     object.add = function(value) {

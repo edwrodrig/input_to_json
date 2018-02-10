@@ -5,16 +5,21 @@
   <script src="js/elem.js"></script>
 </head>
 <body>
-<div id="array" data-type="array" item-template-id="item-template">
-</div>
+<table>
+<thead>
+  <tr>
+    <th>Name</th><th>Age</th>
+  </tr>
+</thead>
+<tbody id="array" data-type="array" item-template-id="item-template">
+</tbody>
+</table>
 <button type="button" onclick="get_max(ELEM.get('array').value)">Get Max</button>
 <button type="button" onclick="add(ELEM.get('array'))">Add</button>
-
 <template id="item-template">
-  <div data-type="object">
-    <label>Name:</label><input type="text" name="name"/><br/>
-    <label>Age:</label><input type="number" name="age"/>
-  </div>
+  <tr data-type="object">
+    <td name="name"/><td/><td name="age"></td>
+  </tr>
 </template>
 <script>
 function get_max(value) {
