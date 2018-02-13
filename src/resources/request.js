@@ -16,8 +16,8 @@ REQUEST.default_callback_error = [function(code, message) {
 REQUEST.request = function(url) {
   this.url = url;
   this.params = {};
-  this.callback_success = REQUEST.default_callback_success;
-  this.callback_error = REQUEST.default_callback_error;
+  this.callback_success = REQUEST.default_callback_success.slice();
+  this.callback_error = REQUEST.default_callback_error.slice();
 };
 
 REQUEST.request.prototype.success = function(callback, append) {
