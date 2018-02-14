@@ -1,4 +1,6 @@
-var PAGE = {};
+var PAGE = {
+  scripts : []
+};
 
 PAGE.params = function() {
   var params = location.href.split('?');
@@ -15,5 +17,20 @@ PAGE.params = function() {
   }
 
   return result;
+};
+
+PAGE.load_script = function(url, callback) {
+  if ( this.scripts.indexOf(url) !== -1 ) {
+    callback();
+  } else {
+    this.scripts.push(url);
+    var scriptTag = document.createElement('script');
+
+    scriptTag.onload = callback;
+    scriptTag.onreadystatechange = callback;
+
+    scriptTag.src = url;
+    document.body.appendChild(scriptTag);
+  }
 };
 
