@@ -19,6 +19,58 @@ PAGE.params = function() {
   return result;
 };
 
+PAGE.load_template = function(id ,callback) {
+  var template = document.getElementById(id);
+  var children = template.content.children;
+
+  var not_loaded = [];
+
+  for ( var i = 0 ; i < children.length ; i ++ ) {
+    var node = children[i];
+    if ( node.hasAttribute('load_key') ) {
+      var load_key = node.getAttribute('load_key');
+
+      if ( this.loaded_files.indexOf(load_key) === -1 ) {
+        not_loaded.push(document.importNode(node, true));
+      }
+    }   
+  }
+
+  if ( not_loaded.length == 0 ) {
+    callback();
+  } else {
+    var counter = not_loaded.length;
+    for ( var i = 0 ; i < not_loaded.length ; i++ ) {
+      var node = not_loaded[i];
+      this.loaded_files.push(node.getAttribute('load_key'));
+      if ( node.tagName == 'LINK' ) {
+        document.getElementsByTagName('head')[0].appendChild(node);
+
+        counter--;
+        if ( counter <= 0 )
+           callback();
+      } else if ( node.tagName == 'SCRIPT' ) {
+        if ( node.hasAttribute('src') ) {
+          node.onload = function() {
+            counter--;
+            if ( counter <= 0 )
+              callback();
+          }
+          document.body.appendChild(node);
+        } else {
+          document.body.appendChild(node);
+          counter--;
+          if ( counter <= 0 )
+            callback();
+        }
+
+      }
+      
+   
+    }
+  }
+};
+
 PAGE.load_files = function(deps, callback) {
   var not_loaded = [];
   for ( var i = 0 ; i < deps.length ; i++ ) {
