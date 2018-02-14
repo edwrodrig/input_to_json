@@ -7,12 +7,14 @@
 <body>
 <div>
   <button type="button" onclick="update()">Sum</button>
-  <div id="result"></div>
+  <div id="result" style="display:none"></div>
 </div>
 <script>
 function update() {
-  PAGE.load_script('js/elem.js', function() {
-    ELEM.get('result').value = new Date().toLocaleString();
+  PAGE.load_files(['js/elem.js', 'js/anim.js', 'style.css'], function() {
+    var e = ELEM.get('result');
+    e.value = new Date().toLocaleString();
+    ANIM.fade_in(e.e);
   });
 }
 </script>
