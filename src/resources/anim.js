@@ -32,6 +32,9 @@ ANIM.fade_out = function(elem) {
 };
 
 ANIM.modal_in = function(elem) {
+   if ( typeof elem === "string" )
+     elem = document.getElementById(elem);
+
    elem.style.top = 0;
    elem.style.left = 0;
    elem.style.position = 'fixed';
@@ -45,6 +48,9 @@ ANIM.modal_in = function(elem) {
 };
 
 ANIM.modal_out = function(elem) {
+  if ( typeof elem === "string" )
+    elem = document.getElementById(elem);
+
   if ( ANIM.fade_out(elem) ) {
     if ( ANIM.modal_levels == 1 )
       document.body.style.overflow = null;
@@ -53,6 +59,9 @@ ANIM.modal_out = function(elem) {
 };
 
 ANIM.change_page = function(elem, target) {
+  if ( typeof elem === "string" )
+    elem = document.getElementById(elem);
+
   var children = elem.children;
 
   for ( var i = 0 ; i < children.length ; i++ ) {

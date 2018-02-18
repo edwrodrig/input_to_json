@@ -23,13 +23,12 @@
 <div class="paged" id="element" style="display:none">
   <div page_name="1">Hola como te va <button onclick="change('2')">next</button></div>
   <div page_name="2">Muy bien<button onclick="change('3')">Next</button></div>
-  <div page_name="3">Adios<button onclick="ANIM.modal_out(document.getElementById('element'))">Init</button></div>
+  <div page_name="3">Adios<button onclick="ANIM.modal_out('element')">Init</button></div>
 </div>
-<button onclick="change('1');ANIM.modal_in(document.getElementById('element'));">Reset</button>
+<button onclick="change('1');ANIM.modal_in('element');">Reset</button>
 <script>
 function change(target) {
-  var e = document.getElementById('element');
-  ANIM.change_page(e, target);
+  ANIM.change_page('element', target);
 }
 </script>
 </body>
