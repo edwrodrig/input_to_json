@@ -7,7 +7,7 @@ ANIM.fade_in = function(elem) {
     elem.style.opacity = 0;
     elem.style.transition = "opacity 0.5s";
     requestAnimationFrame(function() {
-      elem.style.display = 'block';
+      elem.style.display = '';
       requestAnimationFrame(function() {
         elem.style.opacity = 1;
       });
