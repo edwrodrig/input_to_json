@@ -49,6 +49,12 @@ PAGE.load_template = function(id ,callback) {
         counter--;
         if ( counter <= 0 )
            callback();
+      } else if ( node.tagName == 'STYLE' ) {
+        document.getElementsByTagName('head')[0].appendChild(node);
+
+        counter--;
+        if ( counter <= 0 )
+          callback();
       } else if ( node.tagName == 'SCRIPT' ) {
         if ( node.hasAttribute('src') ) {
           node.onload = function() {
