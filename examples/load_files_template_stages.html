@@ -10,12 +10,18 @@
   <div id="result" style="display:none"></div>
   <template id="sources">
     <div>
-      <script load-key="abc">alert('loaded')</script>
+      <script load_key="abc">alert('loading')</script>
+    </div>
+    <div>
       <script load_key="elem" src="js/elem.js"></script>
       <script load_key="anim" src="js/anim.js"></script>
+    </div>
+    <div>
       <link load_key="style" href="style.css" type="text/css" rel="stylesheet">
+    </div>
+    <div>
       <script load_key="local_code">
-        alert('loading');
+        alert('loaded');
       </script>
     </div>
   </template>

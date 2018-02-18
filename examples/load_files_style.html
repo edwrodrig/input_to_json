@@ -9,7 +9,8 @@
   <button type="button" onclick="update()">Sum</button>
   <div id="result" style="display:none"></div>
   <template id="sources">
-    <script load-key="abc">alert('loaded')</script>
+    <div>
+    <script load_key="abc">alert('loaded')</script>
     <script load_key="elem" src="js/elem.js"></script>
     <script load_key="anim" src="js/anim.js"></script>
     <style load_key="style">
@@ -21,11 +22,12 @@ color: white;
     <script load_key="local_code">
       alert('loading');
     </script>
+    </div>
   </template>
 </div>
 <script>
 function update() {
-  PAGE.load_template('sources', function() {
+  LOADER.load('sources', function() {
     var e = ELEM.get('result');
     e.value = new Date().toLocaleString();
     ANIM.fade_in(e.e);
