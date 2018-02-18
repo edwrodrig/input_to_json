@@ -52,5 +52,19 @@ ANIM.modal_out = function(elem) {
   }
 };
 
+ANIM.change_page = function(elem, target) {
+  var children = elem.children;
+
+  for ( var i = 0 ; i < children.length ; i++ ) {
+    var child = children[i];
+    var page_name = child.getAttribute('page_name');
+
+    if ( page_name == target )
+      ANIM.fade_in(child);
+    else
+      ANIM.fade_out(child);
+  }
+};
+
 
 
