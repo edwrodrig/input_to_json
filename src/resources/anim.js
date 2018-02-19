@@ -23,7 +23,8 @@ ANIM.fade_out = function(elem) {
     elem.style.transition = "opacity 0.5s";
     elem.style.opacity = 0;
     setTimeout(function() {
-      elem.style.display = 'none';
+      if ( elem.style.opacity == 0 )
+        elem.style.display = 'none';
     }, 500);
     return true;
   }
