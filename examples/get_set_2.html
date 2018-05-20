@@ -24,8 +24,8 @@
 ELEM.type.custom = function(object) {
   Object.defineProperty(object, 'value', {
     set(value) {
-      this.get_element('id').value = value.id;
-      this.get_element('text').value = value.text;
+      this.getElement('id').value = value.id;
+      this.getElement('text').value = value.text;
     }
   });
 };

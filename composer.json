@@ -8,6 +8,12 @@
             "email": "edwrodrig@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "require": {
         "php": "^7.0"
     },
@@ -17,10 +23,12 @@
       }
     },
     "require-dev" : {
+        "bower-asset/qunit": "^2.6",
         "phpunit/phpunit" : "^6.4"
     },
     "scripts" : {
       "test" : "phpunit"
     }
+
 
 }
