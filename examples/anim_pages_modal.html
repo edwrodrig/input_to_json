@@ -20,15 +20,10 @@
 </head>
 <body>
 <div class="paged" id="element" style="display:none">
-  <div page_name="1">Hola como te va <button onclick="change('2')">next</button></div>
-  <div page_name="2">Muy bien<button onclick="change('3')">Next</button></div>
-  <div page_name="3">Adios<button onclick="ANIM.modal_out('element')">Init</button></div>
+  <div data-page-name="1">Hola como te va <button onclick="ANIM.changePage('element', '2')">Go Second page</button></div>
+  <div data-page-name="2">Muy bien<button onclick="ANIM.changePage('element','3')">Go to final page</button></div>
+  <div data-page-name="3">Adios<button onclick="ANIM.modalOut('element')">Close modal</button></div>
 </div>
-<button onclick="change('1');ANIM.modal_in('element');">Reset</button>
-<script>
-function change(target) {
-  ANIM.change_page('element', target);
-}
-</script>
+<button onclick="ANIM.changePage('element', '1');ANIM.modalIn('element');">Open modal</button>
 </body>
 </html>

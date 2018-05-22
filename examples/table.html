@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8"/>
-  <script src="js/elem.js"></script>
+    <meta charset="utf-8"/>
+    <script src="js/elem.js"></script>
 </head>
 <body>
+<h1>Table</h1>
 <table>
-<thead>
-  <tr>
-    <th>Name</th><th>Age</th>
-  </tr>
-</thead>
-<tbody id="array" data-type="array" item-template-id="item-template">
-</tbody>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    </thead>
+    <tbody id="array" data-type="array" data-item-template-id="item-template">
+    </tbody>
 </table>
-<button type="button" onclick="get_max(ELEM.get('array').value)">Get Max</button>
-<button type="button" onclick="add(ELEM.get('array'))">Add</button>
 <template id="item-template">
-  <tr data-type="object">
-    <td name="name"><td/><td name="age"></td>
-  </tr>
+    <tr data-type="object">
+        <td data-name="name"></td>
+        <td data-name="age"></td>
+    </tr>
 </template>
-<script>
-function get_max(value) {
-  var name = '';
-  var max = -999;
-  for ( var i = 0 ; i < value.length ; i++ ) {
-    if ( value[i].age > max ) {
-      max = value[i].age;
-      name = value[i].name;
-    }
-  }
-  alert('The oldest is ' + name);
-}
+<button type="button" onclick="get_max(ELEM.get('array').value)">Get Max</button>
+<h2>New element</h2>
+<div data-type="object">
+    <label>Name:</label><input type="text" name="name" value="Nuevo"/><br/>
+    <label>Age:</label><input type="number" name="age" value="10"/>
+    <button type="button" onclick="ELEM.get('array').add(ELEM.get(this.parentElement).value)">Add</button>
+</div>
 
-function add(e) {
-   e.add({name: 'Nuevo', age: 10});
-}
+<script>
+    function get_max(value) {
+        let name = '';
+        let max = -999;
+        for (let i = 0; i < value.length; i++) {
+            if (value[i].age > max) {
+                max = value[i].age;
+                name = value[i].name;
+            }
+        }
+        alert('The oldest is ' + name);
+    }
 </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
-var LOADER = {};
+var LOADER = {
+    loaded_files: []
 
-LOADER.loaded_files = [];
+};
 
 LOADER.load = function(id, callback) {
   var elem = document.getElementById(id);

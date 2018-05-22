@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8"/>
-  <script src="js/anim.js"></script>
-<style>
-.modal {
-  background-color: blue;
-  color: yellow;
-}
-</style>
+    <meta charset="utf-8"/>
+    <script src="js/anim.js"></script>
+    <style>
+        .modal {
+            background-color: blue;
+            color: yellow;
+        }
+    </style>
 </head>
 <body>
 <div>
-  <button type="button" onclick="ANIM.modal_in(document.getElementById('modal_1'))">Launch Modal</button>
+    <button type="button" onclick="ANIM.modalIn('modal_1')">Launch Modal</button>
+</div>
 <div id="modal_1" class="modal" style="display:none">
-Hola como te va
-<button type="button" onclick="ANIM.modal_in(document.getElementById('modal_2'))">Launch Modal</button>
-<button type="button" onclick="ANIM.modal_out(document.getElementById('modal_1'))">Close</button>
+    Hola como te va
+    <button type="button" onclick="ANIM.modalIn('modal_2')">Launch Modal</button>
+    <button type="button" onclick="ANIM.modalOut('modal_1')">Close</button>
 </div>
 <div id="modal_2" class="modal" style="display:none">
-Chao
-<button type="button" onclick="ANIM.modal_out(document.getElementById('modal_2'))">Close</button>
+    Chao
+    <button type="button" onclick="ANIM.modalOut('modal_2')">Close</button>
 </div>
 </body>
 </html>

@@ -6,13 +6,14 @@
   <script src="js/page.js"></script>
 </head>
 <body>
-<div service>
-  <button type="button" onclick="sum()">Sum</button>
+<div>
+  <p>Concatenate two url params. Just append these url params a=hello&b=_world, reload and press the concat button</p>
+  <button type="button" onclick="concat()">Concatenate a with b</button>
   <div id="result"></div>
 </div>
 <script>
-function sum(args) {
-  var params = PAGE.params();
+function concat() {
+  let params = PAGE.params();
   ELEM.get('result').value = params.a + params.b;
 }
 </script>

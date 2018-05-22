@@ -119,8 +119,8 @@ var ANIM = {
      * The paged element must have the following form
      * ```
      * <div id="elem">
-     *     <div page_name="a"></div>
-     *     <div page_name="b"></div>
+     *     <div data-page-name="a"></div>
+     *     <div data-page-name="b"></div>
      * </div>
      * ```
      * @param {HTMLElement|string} elem An element or id
@@ -134,7 +134,7 @@ var ANIM = {
 
         for (let i = 0; i < children.length; i++) {
             let child = children[i];
-            let current_page_name = child.getAttribute('page_name');
+            let current_page_name = child.getAttribute('data-page-name');
 
             if (current_page_name === page_name)
                 ANIM.fadeIn(child);

@@ -191,3 +191,137 @@ QUnit.test("handle array element", function(assert) {
     );
 
 });
+
+QUnit.test("text json type", function(assert) {
+    let fixture = document.getElementById("qunit-fixture");
+    fixture.innerHTML = "<textarea id='testid' data-type='json'>{\"name\": \"Edwin\"}</textarea>";
+    let element = document.getElementById('testid');
+    assert.equal('json', ELEM.getType(element));
+    assert.propEqual(ELEM.get(element).value, {name: "Edwin"});
+});
+
+QUnit.test("handle custom element", function(assert) {
+    let fixture = document.getElementById("qunit-fixture");
+    fixture.innerHTML = "<input type='text' id='testid' data-type='wachulin' value='hola'/>";
+
+
+    ELEM.type.wachulin = function(object) {
+        Object.defineProperty(object, 'value', {
+            get() {
+                return this.e.value + this.e.value;
+            },
+            set(value) {
+                this.e.value = value;
+            }
+        });
+    };
+
+    let element = ELEM.get('testid');
+
+
+    assert.equal(element.value, 'holahola');
+    element.value = 'chao';
+
+    assert.equal(element.value, 'chaochao');
+});
+
+QUnit.test('request json ok', function(assert) {
+    let done = assert.async();
+
+    REQUEST.call('http://localhost:8888/echo_json_ok.php')
+        .json({name: 'Edwin', surname: 'Rodriguez'})
+        .success(function(e) {
+            assert.propEqual(e, {name:'Edwin', surname: 'Rodriguez'});
+            done();
+        })
+        .error(function(e) {
+            assert.equal(1,2, 'This call should success');
+            done();
+        })
+        .send();
+});
+
+QUnit.test('request json fail', function(assert) {
+    let done = assert.async();
+
+    REQUEST.call('http://localhost:8888/echo_json_fail.php')
+        .json('some message')
+        .success(function(e) {
+            assert.equal(1,2, 'This call should fail');
+            done();
+        })
+        .error(function(status, message) {
+            assert.equal(-1, status);
+            assert.equal('some message', message);
+            done();
+        })
+        .send();
+});
+
+QUnit.test('request json internal server error', function(assert) {
+    let done = assert.async();
+
+    REQUEST.call('http://localhost:8888/echo_http_error.php')
+        .json(500)
+        .success(function(e) {
+            assert.equal(1,2, 'This call should fail');
+            done();
+        })
+        .error(function(status, message) {
+            assert.equal(status, 500);
+            assert.equal(message, "Internal Server Error");
+            done();
+        })
+        .send();
+});
+
+QUnit.test('request json  not found', function(assert) {
+    let done = assert.async();
+
+    REQUEST.call('http://localhost:8888/echo_http_error.php')
+        .json(404)
+        .success(function(e) {
+            assert.equal(1,2, 'This call should fail');
+            done();
+        })
+        .error(function(status, message) {
+            assert.equal(status, 404);
+            assert.equal(message, "Not Found");
+            done();
+        })
+        .send();
+});
+
+QUnit.test('request json wrong format', function(assert) {
+    let done = assert.async();
+
+    REQUEST.call('http://localhost:8888/echo_json_wrong_format.php')
+        .json(404)
+        .success(function(e) {
+            assert.equal(1,2, 'This call should fail');
+            done();
+        })
+        .error(function(status, message) {
+            assert.equal(status, -1);
+            assert.equal(message, "JSON.parse: unexpected character at line 1 column 1 of the JSON data");
+            done();
+        })
+        .send();
+});
+
+
+QUnit.test('request json wrong success', function(assert) {
+    let done = assert.async();
+
+    REQUEST.call('http://localhost:8888/echo_json_ok.php')
+        .json({name: 'Edwin', surname: 'Rodriguez'})
+        .success(function(e) {
+            throw "hola";
+        })
+        .error(function(status, message) {
+            assert.equal(status, -1);
+            assert.equal(message, 'hola');
+            done();
+        })
+        .send();
+});

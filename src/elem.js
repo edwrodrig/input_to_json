@@ -222,7 +222,7 @@ var ELEM = {
                         return child;
                 }
                 return null;
-            }
+            };
 
             Object.defineProperty(object, 'value', {
                 get() {
@@ -274,6 +274,21 @@ var ELEM = {
                     for (let i = 0; i < value.length; i++) {
                         this.add(value[i]);
                     }
+                }
+            });
+        },
+
+        json(object) {
+            Object.defineProperty(object, 'value', {
+                get() {
+                    try {
+                        return JSON.parse(this.e.value);
+                    } catch ( e ) {
+                        throw e;
+                    }
+                },
+                set(value) {
+                    this.e.value = JSON.stringify(value, null, 2);
                 }
             });
         }
