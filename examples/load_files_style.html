@@ -2,27 +2,23 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <script src="js/page.js"></script>
+  <script src="js/loader.js"></script>
 </head>
 <body>
 <div>
   <button type="button" onclick="update()">Sum</button>
   <div id="result" style="display:none"></div>
   <template id="sources">
-    <div>
-    <script load_key="abc">alert('loaded')</script>
-    <script load_key="elem" src="js/elem.js"></script>
-    <script load_key="anim" src="js/anim.js"></script>
-    <style load_key="style">
+    <script data-load-key="onlyonetime">alert('load only the first time')</script>
+    <script src="js/elem.js"></script>
+    <script src="js/anim.js"></script>
+    <style>
 body {
 background-color: black;
 color: white;
 }
     </style>
-    <script load_key="local_code">
-      alert('loading');
-    </script>
-    </div>
+    <script>alert('load every time')</script>
   </template>
 </div>
 <script>
@@ -30,7 +26,7 @@ function update() {
   LOADER.load('sources', function() {
     var e = ELEM.get('result');
     e.value = new Date().toLocaleString();
-    ANIM.fadeIn(e.e);
+    ANIM.fadeIn('result');
   });
 }
 </script>

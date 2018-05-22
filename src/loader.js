@@ -25,7 +25,6 @@ var LOADER = {
           if ( node.tagName === 'LINK' ) {
             load_key = node.getAttribute('href');
           } else if ( node.tagName === 'STYLE' ) {
-            load_key = node.getAttribute('load');
           } else if ( node.tagName === 'SCRIPT' ) {
             if ( node.hasAttribute('src') ) {
               load_key = node.getAttribute('src');
@@ -39,7 +38,7 @@ var LOADER = {
             load_key = node.getAttribute('data-load-key');
           }
 
-          if ( !node.hasOwnProperty('load_key') ) {
+          if ( load_key === '' ) {
               load_key = Math.random().toString(36).substr(2, 16);
           }
 
@@ -55,7 +54,7 @@ var LOADER = {
 
     /**
      *
-     * @param {HTMLElement|string} element
+     * @param {string} element
      * @param callback
      */
     load(element ,callback) {
@@ -68,10 +67,12 @@ var LOADER = {
         if (!element instanceof HTMLElement)
             throw "Not an HTMLElement";
 
+
+        element = element.content;
         let promises = [];
 
         // @var {HTMLElement} childNode
-        for (let childNode in this.iterateLoadableChildren(resources)) {
+        for (let childNode of this.iterateLoadableChildren(element)) {
             this.loaded_keys.push(childNode.load_key);
             if (childNode.tagName === 'SCRIPT' && childNode.hasAttribute('src')) {
                 promises.push(new Promise(resolve => {
