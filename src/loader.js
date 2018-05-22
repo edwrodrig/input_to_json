@@ -1,88 +1,93 @@
 var LOADER = {
-    loaded_files: []
+    /**
+     * An array with the already loaded keys.
+     */
+    loaded_keys: [],
 
-};
+    /**
+     * Iterate trough loadable children
+     *
+     * Loadables are HTML elements that require a special treatement when appended to a document.
+     * link style and script doesn't work if you append the code using simple concatenation like innerHTML += '<script></script>'
+     * You need to append actual nodes to specific nodes of the document. Something on the header, other in the body.
+     * This function detects every loadable nodes of elements for further processing.
+     * Also generates a load key that is used to see if that node has been loaded previously
+     * @param {HTMLElement} element
+     * @returns {IterableIterator<*>}
+     */
+    iterateLoadableChildren : function* (element) {
 
-LOADER.load = function(id, callback) {
-  var elem = document.getElementById(id);
-  var stages = elem.content.children;
-  var i = stages.length - 1;
-  var last_stage = stages[i];
+        let children = element.children;
+        for ( let i = 0 ; i < children.length ; i++ ) {
+          let node = children[i];
+          let load_key = '';
 
-  var last_func = (function() {
-    var stage = last_stage;
-    return function() {
-      LOADER.load_stage(stage, callback);
-    };
-  })();
-
-  i--;
-  for ( ; i >= 0 ; i-- ) {
-    last_stage = stages[i];
-    last_func = (function() {
-      var stage = last_stage;
-      var func = last_func;
-      return function() {
-        LOADER.load_stage(stage, func);
-      }
-    })();  
-  }
-  
-  last_func();
-};
-
-LOADER.load_stage = function(resources ,callback) {
-  var children = resources.children;
-
-  var not_loaded = [];
-
-  for ( var i = 0 ; i < children.length ; i ++ ) {
-    var node = children[i];
-    if ( node.hasAttribute('load_key') ) {
-      var load_key = node.getAttribute('load_key');
-
-      if ( this.loaded_files.indexOf(load_key) === -1 ) {
-        not_loaded.push(document.importNode(node, true));
-      }
-    }   
-  }
-
-  if ( not_loaded.length == 0 ) {
-    callback();
-  } else {
-    var counter = not_loaded.length;
-
-    var load_resource = function(node) {
-      document.getElementsByTagName('head')[0].appendChild(node);
-      counter--;
-      if ( counter <= 0 )
-        callback();
-    };
-
-    for ( var i = 0 ; i < not_loaded.length ; i++ ) {
-      var node = not_loaded[i];
-      this.loaded_files.push(node.getAttribute('load_key'));
-      if ( node.tagName == 'LINK' ) {
-        load_resource(node);
-      } else if ( node.tagName == 'STYLE' ) {
-        load_resource(node);
-      } else if ( node.tagName == 'SCRIPT' ) {
-        if ( node.hasAttribute('src') ) {
-          node.onload = function() {
-            counter--;
-            if ( counter <= 0 )
-              callback();
+          if ( node.tagName === 'LINK' ) {
+            load_key = node.getAttribute('href');
+          } else if ( node.tagName === 'STYLE' ) {
+            load_key = node.getAttribute('load');
+          } else if ( node.tagName === 'SCRIPT' ) {
+            if ( node.hasAttribute('src') ) {
+              load_key = node.getAttribute('src');
+            }
+          } else {
+            continue;
           }
-          document.body.appendChild(node);
-        } else {
-          load_resource(node);
+
+
+          if ( node.hasAttribute('data-load-key') ) {
+            load_key = node.getAttribute('data-load-key');
+          }
+
+          if ( !node.hasOwnProperty('load_key') ) {
+              load_key = Math.random().toString(36).substr(2, 16);
+          }
+
+          if ( this.loaded_keys.indexOf(load_key) === -1 ) {
+              node = document.importNode(node, true);
+              // noinspection JSUndefinedPropertyAssignment
+              node.load_key = load_key;
+              yield node;
+          }
+
+        }
+    },
+
+    /**
+     *
+     * @param {HTMLElement|string} element
+     * @param callback
+     */
+    load(element ,callback) {
+        if (typeof element === 'string')
+            element = document.getElementById(element);
+
+        if (element === null)
+            throw "Element is null";
+
+        if (!element instanceof HTMLElement)
+            throw "Not an HTMLElement";
+
+        let promises = [];
+
+        // @var {HTMLElement} childNode
+        for (let childNode in this.iterateLoadableChildren(resources)) {
+            this.loaded_keys.push(childNode.load_key);
+            if (childNode.tagName === 'SCRIPT' && childNode.hasAttribute('src')) {
+                promises.push(new Promise(resolve => {
+                    childNode.onload = resolve();
+                    document.body.appendChild(childNode);
+                }));
+            } else {
+                promises.push(new Promise(resolve => {
+                    document.getElementsByTagName('head')[0].appendChild(childNode);
+                    resolve();
+                }));
+            }
         }
 
-      }
-      
-   
+        Promise.all(promises).then(callback);
     }
-  }
 };
 
 
