@@ -241,6 +241,42 @@ QUnit.test('request json ok', function(assert) {
         .send();
 });
 
+QUnit.test('request json double success ok', function(assert) {
+    let done = assert.async();
+
+    REQUEST.call('http://localhost:8888/echo_json_ok.php')
+        .json({name: 'Edwin', surname: 'Rodriguez'})
+        .success(function(e) {
+            assert.propEqual(e, {name:'Edwin', surname: 'Rodriguez'});
+        })
+        .success(function(e) {
+            assert.propEqual(e, {name:'Edwin', surname: 'Rodriguez'});
+            done();
+        })
+        .error(function(e) {
+            assert.equal(1,2, 'This call should success');
+            done();
+        })
+        .send();
+});
+
+
+QUnit.test('request form ok', function(assert) {
+    let done = assert.async();
+
+    REQUEST.call('http://localhost:8888/echo_form.php')
+        .form({name: 'Edwin', surname: 'Rodriguez'})
+        .success(function(e) {
+            assert.propEqual(e, {name:'Edwin', surname: 'Rodriguez'});
+            done();
+        })
+        .error(function(e) {
+            assert.equal(1,2, 'This call should success');
+            done();
+        })
+        .send();
+});
+
 QUnit.test('request json fail', function(assert) {
     let done = assert.async();
 

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Test Server" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" singleton="true" document_root="$PROJECT_DIR$/tests/server" port="8888" router_script="$PROJECT_DIR$/tests/server/router.php">
+  <configuration default="false" name="Test Server" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" folderName="Tests" singleton="true" document_root="$PROJECT_DIR$/tests/server" port="8888" router_script="$PROJECT_DIR$/tests/server/router.php">
     <method />
   </configuration>
 </component>
