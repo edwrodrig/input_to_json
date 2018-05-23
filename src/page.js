@@ -1,4 +1,9 @@
 var PAGE = {
+    /**
+     * Get the url parameters as an array
+     * @param url
+     * @returns {{}}
+     */
     params(url) {
         if (typeof url !== 'string' ) url = location.href;
         let params = url.split('?');
