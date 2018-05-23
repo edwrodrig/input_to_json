@@ -11,9 +11,9 @@
   <button type="button" onclick="get()">Some</button>
 </div>
 <script>
-function get(args) {
-  REQUEST.call('test.php')
-    .json({name: 'Edwin', surname: 'Rodriguez'})
+function get() {
+  REQUEST.call('http://echo.jsontest.com/status/1/data/edwin')
+    .json({})
     .success(function(e) {
         ELEM.get('result').value = JSON.stringify(e);
     })
