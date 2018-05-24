@@ -1,6 +1,6 @@
 edwrodrig\js 
 ========
-Little utility javascript front-end library for developing simple pages 
+Little utility javascript front-end library for simple pages
 
 [![Latest Stable Version](https://poser.pugx.org/edwrodrig/js/v/stable)](https://packagist.org/packages/edwrodrig/js)
 [![Total Downloads](https://poser.pugx.org/edwrodrig/js/downloads)](https://packagist.org/packages/edwrodrig/js)
@@ -51,7 +51,7 @@ It is my particular case and I don't think anyone is using it, but it is my libr
 
 
 ## Documentation
-The source code is documented using [phpDocumentor](http://docs.phpdoc.org/references/phpdoc/basic-syntax.html) style,
+The source code is documented using [jsDoc](http://usejsdoc.org/) style,
 so it should pop up nicely if you're using IDEs like [PhpStorm](https://www.jetbrains.com/phpstorm) or similar.
 
 ### Examples
@@ -67,6 +67,12 @@ so it should pop up nicely if you're using IDEs like [PhpStorm](https://www.jetb
 ```
 composer require edwrodrig/js
 ```
+
+## Inclusion
+Considering that this is a javascript library, composer only download the files to [vendor directory](https://getcomposer.org/doc/06-config.md#vendor-dir).
+It up to you how to use in your html pages. The basic way that I use this library is to create a [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link#POSIX_and_Unix-like_operating_systems) to the [src folder](https://github.com/edwrodrig/js/blob/master/src)
+so I can [include](https://www.w3schools.com/tags/att_script_src.asp) the files in the target html page. As an example see [examples folder](https://github.com/edwrodrig/js/blob/master/example) that has a symbolic link to the source folder.
+
 
 ## Testing
 The test are built using QUnit. I don't know if they can be automated but if you just run the [test page](https://github.com/edwrodrig/js/blob/master/tests/test.html) you will see a unit test report. This is better than nothing, and in many ways is enough for me.
