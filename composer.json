@@ -10,6 +10,7 @@
             "role": "Developer"
         }
     ],
+    "minimum-stability" : "stable",
     "repositories": [
         {
             "type": "composer",
@@ -23,5 +24,17 @@
     },
     "require-dev" : {
         "bower-asset/qunit": "^2.6"
+    },
+    "archive": {
+        "exclude": [
+            "/tests",
+            ".gitignore",
+            ".git",
+            "/.travis.yml",
+            "/phpunit.xml.dist",
+            "/examples",
+            "/.idea",
+            "/README.md"
+        ]
     }
 }
