@@ -34,7 +34,7 @@ I sometimes test with other webkit based browser like [Midori](http://midori-bro
 
 My format is very particular. I'm not a fan of [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) because it mixes the json payload with [HTTP status](https://developer.mozilla.org/en/docs/Web/HTTP/Status) and [verbs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
 I like that all information goes in only one format, it makes easier when you want to implements other ways of communication, like raw TCP sockets.
-In simple words, my format just put some status corresponding the function of the [https://developer.mozilla.org/es/docs/Web/HTTP/Status](HTTP Status) in the json.
+In simple words, my format just put some status corresponding the function of the [HTTP status](https://developer.mozilla.org/en/docs/Web/HTTP/Status) in the json.
 There is an example:
 ```json
 {
