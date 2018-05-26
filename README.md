@@ -8,7 +8,7 @@ Little utility javascript front-end library for simple pages
 
 ## My use cases
 
-I'm a back end guy but I can escape to deal with web pages. I hate current front-end development technologies, specially javascript, the [Justin Bieber](https://es.wikipedia.org/wiki/Justin_Bieber) of languages.
+I'm a back end guy but I can't escape to deal with web pages. I hate current front-end development technologies, specially javascript, the [Justin Bieber](https://es.wikipedia.org/wiki/Justin_Bieber) of languages.
 But you can escape to it, It's the browser language!
 For me less javascript is better javascript.
  * I don't want to include this big javascript libraries in my code to do simple task that a simple script can handle.
