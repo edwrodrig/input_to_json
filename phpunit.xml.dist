@@ -4,6 +4,7 @@
     <testsuites>
         <testsuite name="The project's test suite">
             <directory>./tests</directory>
+            <exclude>./tests/js</exclude>
         </testsuite>
     </testsuites>
 

@@ -20,10 +20,18 @@
     "autoload" : {
       "psr-4" : {
         "edwrodrig\\js\\" : "src/"
-      }
+      },
+      "exclude-from-classmap" : ["src/js/"]
+    },
+    "autoload-dev" : {
+        "psr-4" : {
+            "test\\edwrodrig\\js\\" : "tests/"
+        },
+        "exclude-from-classmap" : ["tests/js/"]
     },
     "require-dev" : {
-        "bower-asset/qunit": "^2.6"
+        "bower-asset/qunit": "^2.6",
+        "phpunit/phpunit" : "^8.5"
     },
     "archive": {
         "exclude": [
